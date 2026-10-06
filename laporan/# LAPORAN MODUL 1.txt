@@ -1,0 +1,394 @@
+# LAPORAN MODUL 1
+
+## LINGKUNGAN KERJA MARIADB DI XAMPP DAN GIT
+
+**Nama:** Irene Frimantika
+**NIM:** [25430017]
+**Kelas:** [A]
+**Mata Kuliah:** Basis Data (Praktikum)
+**Modul:** Modul 1 – Lingkungan Kerja MariaDB di XAMPP dan Git
+
+---
+
+## 1. Tujuan Praktikum
+
+Praktikum Modul 1 bertujuan untuk mempersiapkan lingkungan kerja basis data sebelum data dimasukkan ke dalam sistem. Berdasarkan modul praktikum, tujuan yang ingin dicapai adalah:
+
+1. Menjalankan dan menghentikan layanan MariaDB melalui XAMPP Control Panel serta memahami status dan port yang digunakan.
+2. Menghubungkan komputer ke server MariaDB menggunakan Command Line Interface (CLI) dan phpMyAdmin serta memahami perbedaan keduanya.
+3. Mengamankan akun `root` dengan password dan membuat akun kerja dengan hak akses terbatas pada satu basis data.
+4. Membuat basis data pertama dan mencatat pekerjaan menggunakan Git yang terhubung dengan GitHub.
+
+Tujuan tersebut menjadi dasar untuk menyiapkan lingkungan pengembangan proyek basis data yang akan dilanjutkan pada modul-modul berikutnya.
+
+---
+
+## 2. Alat dan Bahan
+
+Alat dan bahan yang digunakan dalam praktikum ini adalah:
+
+* Komputer dengan sistem operasi Windows.
+* XAMPP 8.2.12.
+* MariaDB 10.4.32.
+* phpMyAdmin 5.2.1.
+* Git for Windows.
+* Akun GitHub.
+* Command Prompt atau Shell pada XAMPP Control Panel.
+* Web browser.
+
+Lingkungan praktik tersebut merupakan lingkungan yang digunakan dalam buku praktikum.
+
+---
+
+## 3. Dasar Teori
+
+### 3.1 Basis Data dan DBMS
+
+Basis data merupakan kumpulan data yang saling berhubungan dan disimpan secara terorganisasi agar dapat digunakan oleh berbagai pengguna maupun aplikasi. Perangkat lunak yang digunakan untuk mengelola basis data disebut **Database Management System (DBMS)**.
+
+DBMS membantu pengembang dalam mengelola penyimpanan data, mengatur akses pengguna, menjaga integritas data, serta menjalankan perintah SQL. Dengan adanya DBMS, pengelolaan data menjadi lebih terstruktur dan tidak perlu dilakukan secara manual melalui file-file terpisah.
+
+### 3.2 MariaDB
+
+MariaDB merupakan DBMS yang digunakan dalam praktikum. MariaDB bekerja menggunakan arsitektur **client-server**. Server MariaDB berjalan sebagai proses `mysqld` dan menerima permintaan dari client melalui port TCP 3306.
+
+Client yang digunakan dalam praktikum antara lain:
+
+* `mysql` melalui Command Prompt/Shell.
+* phpMyAdmin melalui browser.
+
+Client mengirimkan perintah SQL kepada server, kemudian server memberikan hasil atau pesan kesalahan kepada client.
+
+### 3.3 XAMPP
+
+XAMPP merupakan paket perangkat lunak yang menyediakan beberapa komponen untuk lingkungan pengembangan lokal, termasuk Apache, MariaDB, PHP, dan phpMyAdmin.
+
+Pada praktikum ini XAMPP digunakan untuk menjalankan MariaDB melalui XAMPP Control Panel. MariaDB dapat dinyalakan dengan menekan tombol **Start** pada bagian MySQL. Walaupun label yang terlihat di XAMPP adalah MySQL, server basis data yang digunakan pada lingkungan praktikum adalah MariaDB.
+
+### 3.4 CLI dan phpMyAdmin
+
+MariaDB dapat diakses melalui Command Line Interface (CLI) maupun phpMyAdmin.
+
+CLI menggunakan perintah berbasis teks. Keunggulannya adalah perintah dapat disimpan sebagai file SQL, dijalankan kembali, dan dicatat menggunakan Git. Sementara itu, phpMyAdmin merupakan antarmuka berbasis web yang lebih mudah digunakan karena menyediakan tampilan grafis.
+
+Dalam praktikum, CLI menjadi sarana utama untuk memahami perintah SQL, sedangkan phpMyAdmin digunakan sebagai pendamping.
+
+### 3.5 Hak Akses Pengguna
+
+Dalam MariaDB, akun pengguna ditentukan berdasarkan pasangan **user@host**. Oleh karena itu, akun seperti `'root'@'localhost'` dan `'root'@'127.0.0.1'` merupakan akun yang berbeda.
+
+Praktikum menerapkan prinsip **least privilege**, yaitu akun `root` digunakan untuk administrasi, sedangkan aktivitas sehari-hari dilakukan menggunakan akun kerja yang hanya mempunyai hak akses pada basis data yang diperlukan.
+
+### 3.6 Git dan GitHub
+
+Git digunakan sebagai sistem kendali versi untuk mencatat perubahan pada proyek. Dalam praktikum, Git digunakan untuk menyimpan skrip SQL dan dokumen proyek serta membuktikan bahwa proyek dikerjakan secara bertahap.
+
+Perubahan pekerjaan dicatat menggunakan `commit` kemudian dikirim ke repositori GitHub menggunakan `push`.
+
+---
+
+# 4. Langkah Kerja dan Hasil Praktikum
+
+## 4.1 Menjalankan MariaDB melalui XAMPP
+
+Langkah pertama adalah membuka XAMPP Control Panel kemudian menjalankan layanan MySQL/MariaDB dengan menekan tombol **Start**.
+
+Setelah berhasil dijalankan, status layanan berubah menjadi berjalan dan port yang digunakan adalah **3306**.
+
+**Hasil:**
+
+MariaDB berhasil dijalankan melalui XAMPP dan siap menerima koneksi.
+
+**Bukti Screenshot:**
+
+> [MASUKKAN SCREENSHOT XAMPP DENGAN MYSQL/MARIADB BERSTATUS RUNNING]
+
+---
+
+## 4.2 Login ke MariaDB melalui CLI
+
+Setelah MariaDB aktif, dilakukan koneksi melalui Shell/Command Prompt.
+
+Perintah yang digunakan:
+
+```sql
+mysql -u root
+```
+
+Setelah berhasil masuk, dilakukan pengecekan versi MariaDB dan akun yang digunakan:
+
+```sql
+SELECT VERSION(), CURRENT_USER();
+```
+
+Kemudian basis data yang tersedia diperiksa menggunakan:
+
+```sql
+SHOW DATABASES;
+```
+
+**Hasil:**
+
+Perintah berhasil dijalankan dan informasi versi server serta akun pengguna dapat ditampilkan.
+
+
+## 4.3 Mengecek SQL Mode
+
+SQL mode server diperiksa menggunakan perintah:
+
+```sql
+SELECT @@sql_mode;
+```
+
+Pada lingkungan praktikum, mode yang diharapkan memuat `STRICT_TRANS_TABLES`. Mode tersebut membantu server menolak data yang tidak valid dibandingkan membiarkannya masuk secara tidak tepat.
+
+
+## 4.4 Mengamankan Akun Root
+
+Akun `root` kemudian diamankan menggunakan password.
+
+Contoh perintah yang diberikan dalam modul:
+
+```sql
+ALTER USER 'root'@'localhost' IDENTIFIED BY '<password>';
+```
+
+Password asli tidak dicantumkan dalam laporan maupun file yang diunggah ke GitHub.
+
+Setelah password dibuat, login kembali dilakukan menggunakan:
+
+```bash
+mysql -u root -p
+```
+
+**Hasil:**
+
+Akun `root` berhasil diamankan dengan password.
+
+---
+
+## 4.5 Membuat Basis Data dan Akun Kerja
+
+Selanjutnya dibuat basis data dan akun kerja yang hanya mempunyai hak akses terhadap basis data proyek.
+
+Untuk proyek pribadi, digunakan tema **Perpustakaan**.
+
+Nama organisasi fiktif:
+
+**Perpustakaan Irene Frimantika**
+
+Basis data proyek dapat menggunakan format:
+
+```text
+perpus_[3 digit terakhir NIM]
+```
+
+Contoh apabila tiga digit terakhir NIM adalah `017`:
+
+```text
+perpus_017
+```
+Akun kerja proyek juga dibuat sesuai ketentuan modul, dengan hak akses dibatasi pada basis data proyek.
+
+
+# 5. Analisis Titik Analisis
+
+## 5.1 Titik Analisis 1 – MariaDB pada XAMPP
+
+Pada XAMPP, tombol yang digunakan untuk menjalankan server basis data bertuliskan **MySQL**, sedangkan server yang digunakan pada lingkungan praktikum adalah **MariaDB**.
+
+Hal ini berarti ketika mencari solusi suatu masalah, perlu diperhatikan versi dan DBMS yang sebenarnya digunakan. Dokumentasi MySQL dapat digunakan apabila sintaks atau konsepnya kompatibel, tetapi untuk perilaku khusus MariaDB sebaiknya menggunakan dokumentasi MariaDB.
+
+MariaDB pada praktikum berjalan pada port TCP **3306**.
+
+---
+
+## 5.2 Titik Analisis 2 – Password Root
+
+Setelah password diberikan kepada root, login menggunakan:
+
+```bash
+mysql -u root
+```
+
+tidak lagi sesuai karena client tidak mengirimkan password.
+
+Untuk meminta password, digunakan:
+
+```bash
+mysql -u root -p
+```
+
+Perbedaan pesan `using password: NO` dan `using password: YES` dapat digunakan untuk membantu mengetahui apakah password dikirim oleh client.
+
+---
+
+## 5.3 Titik Analisis 3 – Hak Akses Akun Kerja
+
+Akun kerja hanya diberikan hak akses terhadap basis data proyek.
+
+Dengan demikian, akun tersebut dapat digunakan untuk kegiatan pengembangan sehari-hari tanpa memberikan hak administratif penuh seperti `root`.
+
+Penerapan tersebut sesuai dengan prinsip **least privilege**, yaitu memberikan hak akses seminimal mungkin sesuai kebutuhan pengguna.
+
+---
+
+## 5.4 Titik Analisis 4 – Mode Cookie pada phpMyAdmin
+
+Pada phpMyAdmin, mode autentikasi diubah menjadi:
+
+```php
+$cfg['Servers'][$i]['auth_type'] = 'cookie';
+```
+
+Mode cookie membuat pengguna harus memasukkan username dan password ketika melakukan login.
+
+Menurut analisis saya, metode ini lebih aman dibandingkan mode `config` karena password tidak disimpan langsung di dalam konfigurasi untuk login otomatis. Modul juga menjelaskan bahwa mode cookie digunakan setelah root diberikan password.
+
+
+# 6. Latihan dan Modifikasi
+
+## 6.1 Membuat Akun Tamu
+
+Pada latihan, dibuat akun `tamu_<3d>` yang hanya memiliki hak `SELECT` terhadap basis data proyek.
+
+Akun tersebut kemudian digunakan untuk mencoba membuat tabel:
+
+```sql
+CREATE TABLE uji (
+    id INT
+);
+```
+
+Karena akun hanya diberikan hak `SELECT`, perintah `CREATE TABLE` seharusnya ditolak oleh MariaDB.
+
+**Hasil pengujian:**
+
+> [ISI DENGAN ERROR YANG BENAR-BENAR MUNCUL PADA KOMPUTER]
+
+**Analisis:**
+
+Penolakan tersebut menunjukkan bahwa hak akses akun telah dibatasi. Akun dapat membaca data sesuai hak yang diberikan, tetapi tidak memiliki hak untuk membuat objek baru dalam basis data.
+
+---
+
+## 6.2 Menjalankan Skrip Berulang Kali
+
+Skrip `p01_lingkungan_<NIM>.sql` dimodifikasi agar dapat dijalankan berulang kali tanpa menghasilkan kesalahan karena objek sudah ada.
+
+Modul memberikan petunjuk untuk menggunakan:
+
+```sql
+CREATE DATABASE IF NOT EXISTS ...
+```
+
+dan:
+
+```sql
+CREATE USER IF NOT EXISTS ...
+```
+
+Skrip kemudian diuji dengan menjalankannya sebanyak dua kali.
+
+
+# 7. Analisis Perbedaan Error 1044, 1045, dan 1142
+
+| Kode Error | Makna                             | Contoh Kondisi                                                       |
+| ---------- | --------------------------------- | -------------------------------------------------------------------- |
+| **1044**   | Akses terhadap basis data ditolak | User tidak mempunyai hak untuk membuka/menggunakan database tertentu |
+| **1045**   | Login/autentikasi ditolak         | Username, host, atau password tidak sesuai                           |
+| **1142**   | Perintah tertentu tidak diizinkan | User tidak mempunyai privilege untuk menjalankan perintah tersebut   |
+
+### Error 1044
+
+Error 1044 berkaitan dengan hak akses terhadap database. Dalam praktikum, akun kerja dapat melihat database tertentu tetapi tidak memiliki izin untuk menggunakan database lain yang bukan haknya.
+
+### Error 1045
+
+Error 1045 berkaitan dengan proses autentikasi. Salah satu petunjuk penting pada pesan error adalah bagian `using password: NO` atau `using password: YES`.
+
+### Error 1142
+
+Error 1142 menunjukkan bahwa pengguna tidak memiliki hak untuk menjalankan perintah tertentu terhadap objek basis data.
+
+Dengan demikian, perbedaan utamanya adalah:
+
+* **1044** → masalah izin terhadap **database**.
+* **1045** → masalah **login/autentikasi**.
+* **1142** → masalah **hak menjalankan perintah tertentu**.
+
+---
+
+# 8. Milestone Proyek 1
+
+Pada Modul 1 mulai dibangun proyek basis data pribadi yang akan dilanjutkan hingga UAS.
+
+Berdasarkan dua digit terakhir NIM, tema proyek ditentukan dari pemetaan yang diberikan pada buku praktikum. Proyek yang digunakan adalah tema:
+
+**Perpustakaan**
+
+Nama organisasi fiktif:
+
+**Perpustakaan Irene Frimantika**
+
+Basis data proyek menggunakan format:
+
+```text
+perpus_[3 digit terakhir NIM]
+```
+
+Contoh:
+
+```text
+perpus_017
+```
+
+Organisasi fiktif ini dirancang sebagai perpustakaan yang menyediakan layanan pendaftaran anggota, pengelolaan koleksi buku, peminjaman dan pengembalian buku, serta pengelolaan informasi transaksi perpustakaan. Lingkup organisasi akan menjadi dasar untuk analisis kebutuhan data pada Modul 2.
+
+Modul 1 mensyaratkan pembuatan basis data proyek dengan `utf8mb4`, akun proyek yang hanya mempunyai hak pada basis data tersebut, identitas proyek pada `README.md`, file `.gitignore`, serta commit dengan format:
+
+```text
+p01: milestone proyek 1
+```
+
+Kemudian hasil pekerjaan di-push ke GitHub.
+
+---
+
+# 9. Struktur Berkas Proyek
+
+Struktur awal repositori proyek adalah:
+
+```text
+basisdata-[NIM]/
+│
+├── README.md
+├── .gitignore
+├── p01_lingkungan_[NIM].sql
+└── laporan/
+    └── p01_laporan_[NIM].md
+```
+
+Berkas SQL digunakan untuk menyimpan perintah yang digunakan dalam praktikum. Password asli tidak boleh dimasukkan ke dalam berkas yang di-commit ke GitHub.
+
+---
+
+# 10. Bukti GitHub
+
+Commit yang digunakan untuk milestone Modul 1:
+
+```text
+p01: milestone proyek 1
+```
+
+# 11. Kesimpulan
+
+Berdasarkan praktikum Modul 1, lingkungan kerja untuk pengembangan basis data telah dipersiapkan menggunakan XAMPP, MariaDB, phpMyAdmin, Git, dan GitHub.
+
+Praktikum memberikan pemahaman mengenai cara menjalankan MariaDB, melakukan koneksi menggunakan CLI, memeriksa versi server dan akun, mengamankan akun `root`, membuat database dan akun kerja dengan hak akses terbatas, serta menggunakan phpMyAdmin.
+
+Selain itu, praktikum memberikan pemahaman mengenai pentingnya pengaturan hak akses menggunakan prinsip least privilege. Git digunakan untuk mencatat perubahan pekerjaan sehingga proses pengerjaan proyek dapat dilacak dari waktu ke waktu.
+
+Pada milestone proyek, telah ditentukan tema **Perpustakaan** dengan organisasi fiktif **Perpustakaan Irene Frimantika**. Basis data dan organisasi tersebut akan menjadi dasar pengembangan proyek pada modul berikutnya, khususnya analisis kebutuhan data pada Modul 2.
+
+
