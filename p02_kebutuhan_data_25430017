@@ -1,0 +1,150 @@
+# Dokumen Kebutuhan Data - Perpustakaan Irene Frimantika
+
+**Nama:** Irene Frimantika
+**NIM:** [25430017]
+**Tema Proyek:** Perpustakaan
+**Parameter P:** 9
+
+## 1. Latar Belakang dan Aktivitas Organisasi
+
+Perpustakaan Irene Frimantika merupakan organisasi fiktif yang menyediakan layanan peminjaman dan pengembalian buku bagi anggota perpustakaan. Perpustakaan mengelola data anggota, koleksi buku, eksemplar buku, transaksi peminjaman, pengembalian, serta denda keterlambatan.
+
+Aktivitas utama perpustakaan meliputi:
+
+1. Pendaftaran anggota baru.
+2. Pengelolaan data buku dan eksemplar buku.
+3. Pencatatan transaksi peminjaman buku.
+4. Pencatatan pengembalian buku.
+5. Perhitungan dan pencatatan denda keterlambatan.
+6. Pembayaran denda.
+7. Pembuatan laporan aktivitas perpustakaan.
+
+Berdasarkan parameter P dari NIM, diperoleh:
+
+* P = (17 mod 9) + 1 = 9
+* Maksimal jumlah buku dalam satu transaksi = P + 2 = **11 buku**
+* Estimasi transaksi per hari = 40 + (5 × P) = **85 transaksi per hari**
+* Denda keterlambatan = **Rp9.000 per hari per eksemplar**
+
+Perpustakaan membedakan antara **judul buku** dan **eksemplar buku**. Satu judul buku dapat mempunyai beberapa eksemplar fisik dengan kode eksemplar yang berbeda. Transaksi peminjaman dilakukan terhadap eksemplar fisik, bukan hanya terhadap judul buku.
+
+---
+
+## 2. Aktor dan Proses Bisnis
+
+### Aktor
+
+| Aktor                | Deskripsi                                                               |
+| -------------------- | ----------------------------------------------------------------------- |
+| Anggota              | Orang yang terdaftar dan dapat meminjam buku                            |
+| Petugas Perpustakaan | Mengelola data anggota, buku, peminjaman, pengembalian, dan denda       |
+| Kepala Perpustakaan  | Melihat laporan dan melakukan pengawasan terhadap kegiatan perpustakaan |
+
+### Proses Bisnis
+
+| Kode  | Proses Bisnis                     | Aktor               | Deskripsi                                                                   |
+| ----- | --------------------------------- | ------------------- | --------------------------------------------------------------------------- |
+| PB-01 | Pendaftaran anggota               | Petugas             | Mencatat data anggota baru dan memberikan nomor anggota                     |
+| PB-02 | Pengelolaan katalog dan eksemplar | Petugas             | Mencatat dan memperbarui data judul buku, kategori, penerbit, dan eksemplar |
+| PB-03 | Pencatatan peminjaman             | Petugas, Anggota    | Mencatat buku yang dipinjam anggota dan tanggal jatuh tempo                 |
+| PB-04 | Pencatatan pengembalian           | Petugas, Anggota    | Mencatat pengembalian buku dan menentukan keterlambatan                     |
+| PB-05 | Pengelolaan pembayaran denda      | Petugas, Anggota    | Mencatat denda dan pembayaran denda anggota                                 |
+| PB-06 | Pembuatan laporan perpustakaan    | Kepala Perpustakaan | Menghasilkan informasi peminjaman, pengembalian, buku, anggota, dan denda   |
+
+---
+
+## 3. Dokumen Sumber yang Dianalisis
+
+Dokumen sumber fiktif yang digunakan adalah **Slip Peminjaman Perpustakaan Irene Frimantika**.
+
+### Contoh Slip Peminjaman
+
+| Elemen              | Contoh           |
+| ------------------- | ---------------- |
+| Nomor Peminjaman    | PJM-2026-0001    |
+| Nomor Anggota       | AGT-001          |
+| Nama Anggota        | Andi Saputra     |
+| Tanggal Pinjam      | 2026-10-01       |
+| Tanggal Jatuh Tempo | 2026-10-08       |
+| Kode Eksemplar      | EK-00125         |
+| Judul Buku          | Basis Data Dasar |
+| Jumlah              | 1                |
+| Petugas             | PTG-001          |
+
+### Hasil Analisis Dokumen
+
+Dari slip peminjaman diperoleh beberapa elemen data:
+
+* nomor peminjaman;
+* nomor anggota;
+* nama anggota;
+* tanggal peminjaman;
+* tanggal jatuh tempo;
+* kode eksemplar;
+* judul buku;
+* jumlah buku;
+* petugas yang melayani.
+
+Data tersebut menunjukkan bahwa transaksi peminjaman perlu dipisahkan menjadi data **peminjaman** dan **detail peminjaman**, karena satu transaksi dapat berisi beberapa buku.
+
+Selain itu, kode eksemplar diperlukan untuk membedakan beberapa buku fisik yang memiliki judul yang sama.
+
+---
+
+## 4. Entitas Kandidat dan Elemen Data
+
+### Entitas Kandidat
+
+| No | Entitas           | Deskripsi                                          |
+| -- | ----------------- | -------------------------------------------------- |
+| 1  | Anggota           | Menyimpan data anggota perpustakaan                |
+| 2  | Buku              | Menyimpan data judul buku                          |
+| 3  | Eksemplar         | Menyimpan data buku fisik                          |
+| 4  | Kategori          | Menyimpan kategori buku                            |
+| 5  | Penerbit          | Menyimpan data penerbit buku                       |
+| 6  | Peminjaman        | Menyimpan transaksi peminjaman                     |
+| 7  | Detail Peminjaman | Menyimpan buku yang dipinjam dalam suatu transaksi |
+| 8  | Pengembalian      | Menyimpan transaksi pengembalian                   |
+| 9  | Denda             | Menyimpan informasi denda keterlambatan            |
+| 10 | Petugas           | Menyimpan data petugas perpustakaan                |
+
+### Elemen Data Utama
+
+**Anggota**
+
+* id_anggota
+* nomor_anggota
+* nama_anggota
+* nomor_identitas
+* nomor_hp
+* email
+* alamat
+* status_anggota
+
+**Buku**
+
+* id_buku
+* isbn
+* judul_buku
+* tahun_terbit
+* id_kategori
+* id_penerbit
+
+**Eksemplar**
+
+* id_eksemplar
+* kode_eksemplar
+* id_buku
+* tanggal_pengadaan
+* kondisi_buku
+* status_eksemplar
+
+**Kategori**
+
+* id_kategori
+* nama_kategori
+* keterangan
+
+**Penerbit**
+
+* id_penerbit
