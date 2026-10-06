@@ -1,0 +1,397 @@
+# LAPORAN MODUL 2
+
+# ANALISIS KEBUTUHAN PENGELOLAAN DATA
+
+**Nama:** Irene Frimantika
+**NIM:** [isi NIM lengkap]
+**Kelas:** [isi kelas]
+**Mata Kuliah:** Praktikum Basis Data
+**Modul:** 2 – Analisis Kebutuhan Pengelolaan Data
+**Organisasi Proyek:** Perpustakaan Irene Frimantika
+
+---
+
+## 1. Tujuan Praktikum
+
+Praktikum Modul 2 bertujuan untuk menganalisis kebutuhan data dari suatu organisasi sebelum masuk ke tahap pemodelan basis data.
+
+Tujuan yang dilakukan dalam praktikum ini adalah:
+
+1. Mengidentifikasi aktivitas organisasi, aktor, dan proses bisnis.
+2. Menentukan elemen data dan entitas kandidat berdasarkan proses bisnis dan dokumen sumber.
+3. Menentukan aturan bisnis yang harus dipenuhi oleh sistem.
+4. Menyusun kebutuhan informasi yang dibutuhkan pengguna.
+5. Membuat matriks CRUD antara proses bisnis dan entitas data.
+6. Menyusun kamus data awal beserta penanggung jawab data.
+7. Mengidentifikasi kebutuhan non-fungsional dan potensi masalah kualitas data.
+
+Tahap analisis kebutuhan dilakukan sebelum desain konseptual, desain logis, dan desain fisik karena hasil analisis menjadi dasar untuk tahap perancangan berikutnya.
+
+---
+
+## 2. Dasar Teori
+
+Analisis kebutuhan pengelolaan data merupakan tahap untuk mengetahui data apa yang dibutuhkan organisasi, siapa yang menggunakan data tersebut, bagaimana data digunakan dalam proses bisnis, serta aturan yang harus dipenuhi.
+
+Dalam praktikum ini, kebutuhan data diturunkan dari aktivitas organisasi, aktor, proses bisnis, dan dokumen sumber. Hasil analisis kemudian digunakan untuk menyusun entitas kandidat, aturan bisnis, kebutuhan informasi, matriks CRUD, dan kamus data.
+
+Menurut modul, perancangan basis data berjalan melalui beberapa tahap, yaitu analisis kebutuhan, desain konseptual, desain logis, dan desain fisik. Oleh karena itu, kesalahan pada tahap analisis dapat memengaruhi tahap perancangan berikutnya.
+
+---
+
+## 3. Gambaran Organisasi
+
+Organisasi yang digunakan dalam proyek ini adalah **Perpustakaan Irene Frimantika**, yaitu organisasi perpustakaan fiktif yang digunakan sebagai objek perancangan basis data.
+
+Perpustakaan menyediakan layanan pendaftaran anggota, pengelolaan katalog buku, pengelolaan eksemplar buku, peminjaman, pengembalian, dan pengelolaan denda.
+
+Sistem basis data dirancang untuk membantu petugas dalam menyimpan data secara terstruktur sehingga informasi anggota, buku, eksemplar, peminjaman, pengembalian, dan denda dapat dicatat serta ditelusuri dengan lebih mudah.
+
+---
+
+## 4. Aktor dan Proses Bisnis
+
+### 4.1 Aktor
+
+Aktor yang terlibat dalam proses bisnis perpustakaan adalah:
+
+1. **Anggota** – menggunakan layanan perpustakaan dan melakukan peminjaman serta pengembalian buku.
+2. **Petugas** – mengelola data anggota, buku, eksemplar, peminjaman, pengembalian, dan denda.
+3. **Pengelola/Kepala Perpustakaan** – menggunakan informasi dan laporan untuk memantau aktivitas perpustakaan.
+
+### 4.2 Proses Bisnis
+
+| Kode  | Proses Bisnis                     | Aktor              | Deskripsi                                                      |
+| ----- | --------------------------------- | ------------------ | -------------------------------------------------------------- |
+| PB-01 | Pendaftaran anggota               | Petugas, Anggota   | Mencatat data anggota baru dan status keanggotaan.             |
+| PB-02 | Pengelolaan katalog dan eksemplar | Petugas            | Mencatat buku, kategori, penerbit, dan eksemplar buku.         |
+| PB-03 | Peminjaman buku                   | Anggota, Petugas   | Mencatat transaksi peminjaman dan buku yang dipinjam.          |
+| PB-04 | Pengembalian buku                 | Anggota, Petugas   | Mencatat pengembalian buku dan kondisi keterlambatan.          |
+| PB-05 | Pengelolaan denda                 | Petugas, Anggota   | Mencatat denda akibat keterlambatan dan pembayaran denda.      |
+| PB-06 | Pembuatan laporan                 | Petugas, Pengelola | Menghasilkan informasi anggota, koleksi, transaksi, dan denda. |
+
+---
+
+## 5. Dokumen Sumber yang Dianalisis
+
+Dokumen sumber yang digunakan dalam proyek perpustakaan dirancang secara fiktif berdasarkan proses bisnis.
+
+### 5.1 Formulir Pendaftaran Anggota
+
+Data yang terdapat pada formulir:
+
+* Nomor anggota
+* Nama anggota
+* Nomor identitas
+* Nomor HP
+* Email
+* Alamat
+* Tanggal pendaftaran
+* Status anggota
+
+Formulir digunakan sebagai sumber data untuk proses PB-01.
+
+### 5.2 Slip Peminjaman
+
+Data yang terdapat pada slip:
+
+* Nomor peminjaman
+* Nomor anggota
+* Nama anggota
+* Tanggal peminjaman
+* Tanggal jatuh tempo
+* Buku yang dipinjam
+* Nomor eksemplar
+* Petugas
+
+Slip digunakan sebagai sumber data untuk proses PB-03.
+
+### 5.3 Kuitansi Denda
+
+Data yang terdapat pada kuitansi:
+
+* Nomor denda
+* Nomor peminjaman
+* Anggota
+* Jumlah hari terlambat
+* Tarif denda
+* Total denda
+* Tanggal pembayaran
+* Petugas
+
+Kuitansi digunakan sebagai sumber data untuk proses PB-05.
+
+---
+
+## 6. Entitas Kandidat
+
+Entitas kandidat yang diperoleh dari hasil analisis adalah:
+
+| No | Entitas           | Keterangan                                               |
+| -- | ----------------- | -------------------------------------------------------- |
+| 1  | Anggota           | Menyimpan data anggota perpustakaan.                     |
+| 2  | Petugas           | Menyimpan data petugas perpustakaan.                     |
+| 3  | Buku              | Menyimpan data judul buku.                               |
+| 4  | Eksemplar         | Menyimpan data salinan fisik dari suatu buku.            |
+| 5  | Kategori          | Menyimpan kategori buku.                                 |
+| 6  | Penerbit          | Menyimpan data penerbit buku.                            |
+| 7  | Peminjaman        | Menyimpan transaksi peminjaman.                          |
+| 8  | Detail Peminjaman | Menyimpan buku/eksemplar yang terdapat dalam peminjaman. |
+| 9  | Pengembalian      | Menyimpan data pengembalian buku.                        |
+| 10 | Denda             | Menyimpan data denda keterlambatan.                      |
+
+Pada tema perpustakaan, satu judul buku dapat mempunyai lebih dari satu eksemplar fisik. Hal ini perlu dibedakan antara entitas **Buku** dan **Eksemplar**. Modul juga memberikan perhatian khusus pada aturan bahwa satu judul buku dapat memiliki banyak eksemplar.
+
+---
+
+## 7. Aturan Bisnis
+
+| Kode  | Aturan Bisnis                                                                                 |
+| ----- | --------------------------------------------------------------------------------------------- |
+| AB-01 | Setiap anggota memiliki nomor anggota yang unik.                                              |
+| AB-02 | Nomor identitas anggota tidak boleh digunakan oleh lebih dari satu anggota.                   |
+| AB-03 | Hanya anggota dengan status aktif yang dapat melakukan peminjaman.                            |
+| AB-04 | Setiap buku dapat memiliki satu atau lebih eksemplar fisik.                                   |
+| AB-05 | Setiap eksemplar hanya dapat berada pada satu status ketersediaan pada suatu waktu.           |
+| AB-06 | Satu transaksi peminjaman harus memiliki minimal satu detail buku.                            |
+| AB-07 | Maksimal item dalam satu transaksi peminjaman adalah 11 eksemplar.                            |
+| AB-08 | Tanggal jatuh tempo peminjaman harus lebih besar atau sama dengan tanggal peminjaman.         |
+| AB-09 | Pengembalian harus mengacu pada transaksi peminjaman yang sudah tercatat.                     |
+| AB-10 | Denda dikenakan apabila pengembalian melewati tanggal jatuh tempo.                            |
+| AB-11 | Tarif denda yang digunakan dalam rancangan adalah Rp9.000 per hari per eksemplar.             |
+| AB-12 | Pembayaran denda harus dicatat agar status denda dapat ditelusuri.                            |
+| AB-13 | Data peminjaman harus mencatat petugas yang melakukan transaksi.                              |
+| AB-14 | Data anggota yang bersifat pribadi hanya dapat diakses oleh petugas yang memiliki kewenangan. |
+
+---
+
+## 8. Kebutuhan Informasi
+
+| Kode  | Kebutuhan Informasi                                                    |
+| ----- | ---------------------------------------------------------------------- |
+| KI-01 | Sistem dapat menampilkan daftar anggota aktif.                         |
+| KI-02 | Sistem dapat menampilkan daftar buku beserta kategori dan penerbitnya. |
+| KI-03 | Sistem dapat menampilkan eksemplar buku yang tersedia untuk dipinjam.  |
+| KI-04 | Sistem dapat menampilkan riwayat peminjaman seorang anggota.           |
+| KI-05 | Sistem dapat menampilkan daftar buku yang sedang dipinjam.             |
+| KI-06 | Sistem dapat menampilkan daftar keterlambatan pengembalian.            |
+| KI-07 | Sistem dapat menampilkan total denda anggota.                          |
+| KI-08 | Sistem dapat menampilkan rekap transaksi peminjaman dan pengembalian.  |
+
+---
+
+## 9. Matriks CRUD
+
+Keterangan:
+
+* **C** = Create
+* **R** = Read
+* **U** = Update
+* **D** = Delete
+
+| Proses                    | Anggota | Petugas | Buku  | Eksemplar | Kategori | Penerbit | Peminjaman | Detail Peminjaman | Pengembalian | Denda |
+| ------------------------- | ------- | ------- | ----- | --------- | -------- | -------- | ---------- | ----------------- | ------------ | ----- |
+| PB-01 Pendaftaran         | C/U/R   | R       | -     | -         | -        | -        | -          | -                 | -            | -     |
+| PB-02 Katalog & eksemplar | -       | C/R/U   | C/R/U | C/R/U     | C/R/U    | C/R/U    | -          | -                 | -            | -     |
+| PB-03 Peminjaman          | R       | R       | R     | R/U       | -        | -        | C          | C                 | -            | -     |
+| PB-04 Pengembalian        | R       | R       | R     | R/U       | -        | -        | R/U        | R                 | C            | C     |
+| PB-05 Denda               | R       | R       | -     | -         | -        | -        | R          | R                 | R            | C/R/U |
+| PB-06 Laporan             | R       | R       | R     | R         | R        | R        | R          | R                 | R            | R     |
+
+Matriks CRUD digunakan untuk memastikan bahwa entitas yang dirancang benar-benar digunakan oleh proses bisnis dan tidak terdapat entitas yang tidak pernah dibuat tanpa alasan yang jelas. Ketentuan ini termasuk dalam persyaratan Milestone Proyek 2.
+
+---
+
+## 10. Kamus Data Awal
+
+| No | Elemen Data           | Entitas           | Deskripsi                      | Penanggung Jawab |
+| -- | --------------------- | ----------------- | ------------------------------ | ---------------- |
+| 1  | id_anggota            | Anggota           | Identitas internal anggota     | Petugas          |
+| 2  | nomor_anggota         | Anggota           | Nomor anggota perpustakaan     | Petugas          |
+| 3  | nama_anggota          | Anggota           | Nama lengkap anggota           | Petugas          |
+| 4  | nomor_identitas       | Anggota           | Nomor identitas anggota        | Petugas          |
+| 5  | nomor_hp              | Anggota           | Nomor telepon anggota          | Petugas          |
+| 6  | email                 | Anggota           | Alamat email anggota           | Petugas          |
+| 7  | alamat                | Anggota           | Alamat anggota                 | Petugas          |
+| 8  | status_anggota        | Anggota           | Status aktif/tidak aktif       | Petugas          |
+| 9  | id_petugas            | Petugas           | Identitas petugas              | Pengelola        |
+| 10 | nama_petugas          | Petugas           | Nama petugas                   | Pengelola        |
+| 11 | id_buku               | Buku              | Identitas judul buku           | Petugas          |
+| 12 | isbn                  | Buku              | ISBN buku                      | Petugas          |
+| 13 | judul_buku            | Buku              | Judul buku                     | Petugas          |
+| 14 | tahun_terbit          | Buku              | Tahun penerbitan buku          | Petugas          |
+| 15 | id_kategori           | Kategori          | Identitas kategori             | Petugas          |
+| 16 | nama_kategori         | Kategori          | Nama kategori buku             | Petugas          |
+| 17 | id_penerbit           | Penerbit          | Identitas penerbit             | Petugas          |
+| 18 | nama_penerbit         | Penerbit          | Nama penerbit                  | Petugas          |
+| 19 | id_eksemplar          | Eksemplar         | Identitas salinan fisik        | Petugas          |
+| 20 | status_eksemplar      | Eksemplar         | Status ketersediaan eksemplar  | Petugas          |
+| 21 | id_peminjaman         | Peminjaman        | Identitas transaksi peminjaman | Petugas          |
+| 22 | tanggal_peminjaman    | Peminjaman        | Tanggal peminjaman             | Petugas          |
+| 23 | tanggal_jatuh_tempo   | Peminjaman        | Batas pengembalian             | Petugas          |
+| 24 | id_detail             | Detail Peminjaman | Identitas detail transaksi     | Petugas          |
+| 25 | tanggal_pengembalian  | Pengembalian      | Tanggal buku dikembalikan      | Petugas          |
+| 26 | jumlah_hari_terlambat | Denda             | Jumlah hari keterlambatan      | Petugas          |
+| 27 | tarif_denda           | Denda             | Tarif denda per hari           | Pengelola        |
+| 28 | total_denda           | Denda             | Total denda yang harus dibayar | Petugas          |
+| 29 | status_denda          | Denda             | Status pembayaran denda        | Petugas          |
+
+Kamus data awal dibuat untuk mendokumentasikan elemen data yang digunakan dalam proses bisnis. Modul mensyaratkan minimal 20 elemen data dan harus mencantumkan penanggung jawab data.
+
+---
+
+## 11. Kebutuhan Non-Fungsional Data
+
+### 11.1 Volume
+
+Berdasarkan parameter pribadi proyek, perkiraan volume transaksi harian adalah 85 transaksi per hari.
+
+### 11.2 Retensi
+
+Data transaksi perpustakaan perlu disimpan untuk kebutuhan riwayat dan pelaporan. Dalam rancangan awal, data transaksi direncanakan dipertahankan minimal selama 5 tahun.
+
+### 11.3 Privasi
+
+Data seperti nomor identitas, nomor HP, email, dan alamat anggota termasuk data pribadi. Akses terhadap data tersebut dibatasi kepada petugas yang memiliki kewenangan.
+
+### 11.4 Integritas
+
+Data peminjaman harus memiliki anggota yang valid, detail peminjaman harus mengacu pada eksemplar yang valid, dan data pengembalian harus mengacu pada transaksi peminjaman yang sudah tercatat.
+
+### 11.5 Konsistensi
+
+Status eksemplar harus mencerminkan kondisi aktual sehingga eksemplar yang sedang dipinjam tidak ditampilkan sebagai tersedia.
+
+---
+
+## 12. Perhitungan Parameter P
+
+Dua digit terakhir NIM yang digunakan adalah **17**.
+
+Rumus parameter P:
+
+**P = (2 digit terakhir NIM mod 9) + 1**
+
+Maka:
+
+**P = (17 mod 9) + 1**
+
+**P = 8 + 1**
+
+**P = 9**
+
+Berdasarkan nilai tersebut:
+
+* P = **9**
+* Maksimal item per transaksi = P + 2 = **11 item**
+* Tarif denda harian yang digunakan = **Rp9.000**
+* Perkiraan volume transaksi harian = 40 + (5 × P)
+* Perkiraan volume transaksi harian = 40 + (5 × 9)
+* Perkiraan volume transaksi harian = **85 transaksi per hari**
+
+Parameter P merupakan parameter personal berbasis NIM dan digunakan kembali pada tahap proyek berikutnya.
+
+---
+
+## 13. Isu Kualitas Data yang Diantisipasi
+
+Beberapa masalah kualitas data yang mungkin terjadi adalah:
+
+1. Nomor anggota tercatat lebih dari satu kali.
+2. Nomor identitas anggota memiliki data ganda.
+3. Nama anggota ditulis dengan format yang berbeda.
+4. Data nomor HP tidak lengkap atau salah format.
+5. Data buku memiliki ISBN yang sama tetapi dicatat sebagai buku berbeda.
+6. Status eksemplar tidak diperbarui setelah peminjaman atau pengembalian.
+7. Tanggal pengembalian tidak sesuai dengan tanggal transaksi.
+8. Data denda tidak sesuai dengan jumlah hari keterlambatan.
+9. Data anggota yang sudah tidak aktif masih digunakan dalam transaksi peminjaman.
+
+Untuk mengurangi masalah tersebut, diperlukan aturan validasi, keunikan data, pembatasan akses, dan konsistensi hubungan antar-data.
+
+---
+
+# 14. Titik Analisis 1
+
+### Mengapa satu judul buku perlu dipisahkan antara Buku dan Eksemplar?
+
+Satu judul buku dapat memiliki beberapa salinan fisik. Contohnya, buku dengan judul yang sama dapat memiliki eksemplar dengan nomor inventaris berbeda.
+
+Jika Buku dan Eksemplar digabung menjadi satu entitas, informasi mengenai jumlah dan status setiap salinan fisik akan sulit dikelola.
+
+Oleh karena itu, entitas Buku digunakan untuk menyimpan informasi judul, sedangkan Eksemplar digunakan untuk menyimpan setiap salinan fisiknya. Keputusan ini sesuai dengan perhatian khusus tema Perpustakaan pada modul.
+
+---
+
+# 15. Titik Analisis 2
+
+### Mengapa proses bisnis harus diturunkan menjadi kebutuhan data?
+
+Proses bisnis menunjukkan aktivitas yang dilakukan organisasi, sedangkan kebutuhan data menunjukkan data yang diperlukan agar aktivitas tersebut dapat dijalankan dan dicatat.
+
+Sebagai contoh, proses peminjaman membutuhkan data anggota, petugas, buku, eksemplar, tanggal peminjaman, dan tanggal jatuh tempo.
+
+Jika kebutuhan data tidak ditentukan sejak awal, terdapat risiko adanya data penting yang tidak tersedia ketika basis data mulai dirancang.
+
+---
+
+# 16. Titik Analisis 3
+
+### Apakah semua entitas kandidat benar-benar diperlukan?
+
+Tidak semua entitas kandidat dapat langsung dianggap sebagai entitas final. Setiap entitas harus dapat dikaitkan dengan proses bisnis dan kebutuhan informasi.
+
+Pada proyek ini, entitas seperti Anggota, Buku, Eksemplar, Peminjaman, Pengembalian, dan Denda memiliki hubungan langsung dengan proses inti perpustakaan.
+
+Entitas Kategori dan Penerbit diperlukan untuk mendukung pengelolaan katalog. Petugas diperlukan karena setiap transaksi perlu dapat ditelusuri kepada petugas yang melakukan proses.
+
+Dengan demikian, entitas kandidat yang digunakan memiliki alasan keberadaan berdasarkan proses bisnis atau kebutuhan informasi.
+
+---
+
+# 17. Perbaikan Pernyataan Kebutuhan yang Kabur
+
+### a. Pernyataan awal:
+
+> "Data anggota harus aman."
+
+Pernyataan tersebut terlalu umum dan sulit diuji.
+
+### Perbaikan:
+
+> Data nomor identitas, nomor HP, email, dan alamat anggota hanya dapat dilihat oleh petugas perpustakaan yang memiliki hak akses sesuai tugasnya.
+
+---
+
+### b. Pernyataan awal:
+
+> "Sistem harus cepat mencari buku."
+
+Pernyataan tersebut tidak memiliki ukuran yang dapat diuji.
+
+### Perbaikan:
+
+> Sistem harus dapat menampilkan hasil pencarian berdasarkan judul, ISBN, atau kategori buku dalam waktu maksimal 3 detik pada kondisi penggunaan normal.
+
+---
+
+### c. Pernyataan awal:
+
+> "Laporan peminjaman harus akurat."
+
+Pernyataan tersebut tidak menjelaskan bagaimana akurasi diperiksa.
+
+### Perbaikan:
+
+> Laporan peminjaman harus menampilkan setiap transaksi yang berstatus tercatat dalam basis data, dengan nomor transaksi, anggota, tanggal peminjaman, dan detail eksemplar yang sesuai dengan data transaksi.
+
+---
+
+# 18. Kesimpulan
+
+Berdasarkan praktikum Modul 2, analisis kebutuhan data merupakan tahap penting sebelum melakukan pemodelan basis data. Pada proyek Perpustakaan Irene Frimantika telah diidentifikasi enam proses bisnis, sepuluh entitas kandidat, empat belas aturan bisnis, delapan kebutuhan informasi, matriks CRUD, serta kamus data awal yang terdiri dari lebih dari dua puluh elemen data.
+
+Analisis juga menghasilkan kebutuhan non-fungsional yang mencakup volume transaksi, retensi data, privasi, dan integritas data. Parameter personal berdasarkan NIM menghasilkan nilai P = 9, sehingga maksimal item per transaksi adalah 11 dan perkiraan volume transaksi adalah 85 transaksi per hari.
+
+Hasil analisis Modul 2 selanjutnya dapat digunakan sebagai dasar untuk membuat ERD pada Modul 3.
+
