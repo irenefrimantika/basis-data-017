@@ -3,8 +3,8 @@
 # ANALISIS KEBUTUHAN PENGELOLAAN DATA
 
 **Nama:** Irene Frimantika
-**NIM:** [isi NIM lengkap]
-**Kelas:** [isi kelas]
+**NIM:** [25430017]
+**Kelas:** [A]
 **Mata Kuliah:** Praktikum Basis Data
 **Modul:** 2 – Analisis Kebutuhan Pengelolaan Data
 **Organisasi Proyek:** Perpustakaan Irene Frimantika
