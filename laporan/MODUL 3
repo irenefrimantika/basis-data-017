@@ -1,1 +1,536 @@
+LAPORAN PRAKTIKUM BASIS DATA
+PERANCANGAN ERD FISIK KOPERASI MAHASISWA (KOPMA)
 
+BAB I
+
+PENDAHULUAN
+
+1.1 Latar Belakang
+
+Basis data merupakan kumpulan data yang disimpan secara terstruktur sehingga dapat dikelola, dicari, dan digunakan kembali dengan mudah. Basis data banyak digunakan dalam berbagai bidang, termasuk pendidikan, perdagangan, dan organisasi.
+
+Salah satu contoh penerapan basis data adalah pada Koperasi Mahasiswa (Kopma). Dalam kegiatan koperasi, terdapat berbagai informasi yang harus dikelola, seperti data petugas, data anggota, data pemasok, data barang, serta transaksi penjualan dan pembelian.
+
+Apabila semua informasi tersebut tidak disusun dengan baik, dapat terjadi kesalahan pencatatan, pengulangan data, dan kesulitan dalam mencari informasi. Oleh karena itu, diperlukan rancangan basis data yang baik agar setiap informasi dapat disimpan sesuai dengan fungsinya.
+
+Salah satu langkah dalam merancang basis data adalah membuat Entity Relationship Diagram (ERD). ERD fisik merupakan rancangan yang menunjukkan struktur tabel, nama kolom, tipe data, aturan penyimpanan data, dan hubungan antartabel.
+
+Dalam laporan ini, pembahasan difokuskan pada ERD fisik Kopma yang terdiri dari delapan tabel, yaitu petugas, anggota, pemasok, barang, penjualan, detail_penjualan, pembelian, dan detail_pembelian. Setiap tabel memiliki fungsi masing-masing dan saling berhubungan untuk mendukung kegiatan koperasi.
+
+1.2 Rumusan Masalah
+
+Berdasarkan latar belakang tersebut, rumusan masalah dalam praktikum ini adalah:
+
+1. Apa yang dimaksud dengan ERD fisik?
+2. Apa fungsi setiap tabel dalam basis data Kopma?
+3. Apa fungsi tipe data yang digunakan dalam setiap tabel?
+4. Apa yang dimaksud dengan constraint dan bagaimana penerapannya?
+5. Bagaimana hubungan antartabel dalam sistem basis data Kopma?
+6. Bagaimana rancangan basis data membantu proses penjualan dan pembelian?
+
+1.3 Tujuan Praktikum
+
+Tujuan praktikum basis data ini adalah:
+
+1. Memahami pengertian dan fungsi ERD fisik.
+2. Mengetahui struktur tabel dalam sistem Kopma.
+3. Memahami penggunaan tipe data pada setiap kolom.
+4. Memahami penggunaan Primary Key, Foreign Key, UNIQUE, NOT NULL, CHECK, DEFAULT, dan AUTO_INCREMENT.
+5. Mengetahui hubungan antara tabel satu dengan tabel lainnya.
+6. Memahami cara kerja basis data dalam mendukung transaksi penjualan dan pembelian.
+
+1.4 Manfaat Praktikum
+
+Praktikum ini memberikan manfaat berupa pemahaman tentang cara merancang basis data yang terstruktur. Selain itu, praktikum ini membantu mahasiswa memahami bagaimana data disimpan, bagaimana tabel dihubungkan, dan bagaimana aturan pada setiap kolom digunakan untuk menjaga ketepatan data.
+
+Pengetahuan ini juga dapat digunakan sebagai dasar untuk membuat sistem informasi menggunakan MySQL atau phpMyAdmin.
+
+
+BAB II
+
+LANDASAN TEORI DAN PEMBAHASAN
+
+2.1 Pengertian Basis Data
+
+Basis data adalah kumpulan data yang disimpan secara terorganisasi sehingga mudah diakses, dikelola, dan diperbarui.
+
+Contohnya, koperasi memiliki data anggota yang berisi nomor anggota, NIM, nama, program studi, dan nomor telepon. Dengan menggunakan basis data, informasi tersebut dapat disimpan dalam tabel dan dicari kembali ketika diperlukan.
+
+Basis data membantu mengurangi pengulangan informasi serta memudahkan pengelolaan data dalam jumlah banyak.
+
+2.2 Pengertian ERD Fisik
+
+Entity Relationship Diagram atau ERD adalah diagram yang menggambarkan entitas atau objek data beserta hubungan di antara entitas tersebut.
+
+ERD fisik merupakan pengembangan rancangan basis data yang lebih terperinci karena sudah menunjukkan bagaimana tabel akan diterapkan dalam sistem basis data.
+
+Pada ERD fisik, informasi yang ditampilkan meliputi:
+
+1. Nama tabel, yaitu nama tempat penyimpanan kelompok data.
+2. Nama kolom, yaitu bagian yang menyimpan atribut atau informasi tertentu.
+3. Tipe data, yaitu jenis nilai yang dapat disimpan dalam kolom.
+4. Constraint, yaitu aturan yang membatasi atau mengatur data.
+5. Primary Key, yaitu kunci utama untuk membedakan setiap baris.
+6. Foreign Key, yaitu kunci yang menghubungkan tabel dengan tabel lainnya.
+7. Kardinalitas, yaitu keterangan mengenai jumlah hubungan antardata.
+
+ERD fisik Kopma digunakan untuk merancang sistem penyimpanan data yang mendukung pengelolaan anggota, petugas, barang, pemasok, penjualan, dan pembelian.
+
+2.3 Pengertian Tabel, Kolom, dan Baris
+
+Sebelum membahas setiap tabel, terdapat tiga istilah dasar yang perlu dipahami.
+
+Tabel adalah tempat untuk menyimpan kelompok data tertentu. Contohnya, tabel anggota digunakan untuk menyimpan informasi anggota koperasi.
+
+Kolom adalah bagian tabel yang menunjukkan jenis informasi yang disimpan. Contohnya, kolom nama_anggota digunakan untuk menyimpan nama anggota.
+
+Baris adalah satu kumpulan data lengkap yang dimiliki oleh satu objek. Contohnya, satu baris pada tabel anggota berisi ID, nomor anggota, NIM, nama, program studi, dan informasi lainnya milik seorang anggota.
+
+Dengan demikian, tabel menyimpan kumpulan data, kolom menentukan jenis informasinya, sedangkan baris berisi data untuk satu objek.
+
+2.4 Struktur dan Fungsi Tabel dalam ERD Fisik Kopma
+
+2.4.1 Tabel Petugas
+
+Tabel petugas digunakan untuk menyimpan informasi orang yang menjalankan kegiatan operasional koperasi. Petugas dapat memiliki peran sebagai kasir, petugas gudang, atau ketua.
+
+Tabel ini memiliki empat kolom, yaitu:
+
+1. id_petugas
+    Tipe data: SMALLINT.
+    Kolom ini berfungsi sebagai identitas utama setiap petugas. Kolom tersebut menggunakan Primary Key dan Auto Increment sehingga setiap petugas memiliki ID yang berbeda dan ID dapat bertambah otomatis.
+2. kode_petugas
+    Tipe data: CHAR(3).
+    Kolom ini digunakan untuk menyimpan kode petugas dengan panjang tiga karakter. Aturan UNIQUE memastikan kode yang sama tidak digunakan oleh petugas lain.
+3. nama_petugas
+    Tipe data: VARCHAR(100).
+    Kolom ini digunakan untuk menyimpan nama petugas. Aturan NOT NULL berarti nama wajib diisi.
+4. peran_petugas
+    Tipe data: ENUM.
+    Kolom ini digunakan untuk menentukan peran petugas. Berdasarkan rancangan, pilihannya adalah kasir, gudang, dan ketua.
+
+Contoh penerapan: Ketika seorang petugas baru bekerja di koperasi, data petugas dimasukkan ke tabel ini. ID petugas akan digunakan untuk menghubungkan petugas tersebut dengan transaksi penjualan yang ditanganinya.
+
+2.4.2 Tabel Anggota
+
+Tabel anggota digunakan untuk menyimpan informasi mahasiswa yang terdaftar sebagai anggota koperasi. Informasi ini membantu koperasi mengenali anggota dan mengetahui status keanggotaannya.
+
+Tabel anggota memiliki delapan kolom, yaitu:
+
+1. id_anggota
+    Tipe data: INT.
+    Berfungsi sebagai identitas utama anggota. Kolom ini menggunakan Primary Key dan Auto Increment.
+2. no_anggota
+    Tipe data: CHAR(6).
+    Digunakan untuk menyimpan nomor anggota dengan panjang enam karakter. Aturan UNIQUE mencegah penggunaan nomor anggota yang sama.
+3. nim_anggota
+    Tipe data: CHAR(10).
+    Digunakan untuk menyimpan NIM mahasiswa. Kolom ini diberi aturan UNIQUE agar NIM tidak tercatat lebih dari satu kali.
+4. nama_anggota
+    Tipe data: VARCHAR(100).
+    Digunakan untuk menyimpan nama lengkap anggota. Kolom ini tidak boleh NULL.
+5. prodi_anggota
+    Tipe data: VARCHAR(60).
+    Digunakan untuk menyimpan nama program studi anggota. Kolom ini wajib diisi.
+6. no_hp_anggota
+    Tipe data: VARCHAR(15).
+    Digunakan untuk menyimpan nomor telepon anggota. Tipe VARCHAR dipilih karena nomor telepon dapat mengandung angka nol di awal dan simbol tertentu.
+7. status_anggota
+    Tipe data: ENUM.
+    Digunakan untuk menyimpan status keanggotaan dengan pilihan aktif atau nonaktif.
+8. tgl_daftar_anggota
+    Tipe data: DATE.
+    Digunakan untuk menyimpan tanggal pendaftaran anggota. Kolom ini tidak boleh NULL.
+
+Contoh penerapan: Ketika mahasiswa mendaftar sebagai anggota koperasi, informasi mahasiswa disimpan dalam tabel anggota. Data tersebut dapat digunakan untuk mengenali anggota saat melakukan transaksi yang dikaitkan dengan keanggotaan.
+
+2.4.3 Tabel Pemasok
+
+Tabel pemasok digunakan untuk menyimpan informasi pihak yang menyediakan barang bagi koperasi. Pemasok berperan penting dalam proses pengadaan barang yang nantinya dijual kepada anggota atau pelanggan.
+
+Tabel pemasok memiliki empat kolom, yaitu:
+
+1. id_pemasok
+    Tipe data: INT.
+    Digunakan sebagai identitas utama pemasok dengan Primary Key dan Auto Increment.
+2. nama_pemasok
+    Tipe data: VARCHAR(100).
+    Digunakan untuk menyimpan nama pemasok. Kolom ini wajib diisi.
+3. telepon_pemasok
+    Tipe data: VARCHAR(15).
+    Digunakan untuk menyimpan nomor telepon pemasok. Kolom ini boleh NULL jika nomor telepon tidak tersedia.
+4. alamat_pemasok
+    Tipe data: VARCHAR(200).
+    Digunakan untuk menyimpan alamat pemasok. Kolom ini juga boleh NULL.
+
+Contoh penerapan: Ketika koperasi membeli alat tulis dari pemasok, data pemasok digunakan untuk mencatat pihak yang menyediakan barang tersebut.
+
+2.4.4 Tabel Barang
+
+Tabel barang digunakan untuk menyimpan informasi seluruh barang yang dikelola dan dijual oleh koperasi. Data pada tabel ini membantu koperasi mengetahui nama barang, kategori, harga jual, dan jumlah stok yang tersedia.
+
+Tabel barang memiliki tujuh kolom, yaitu:
+
+1. id_barang
+    Tipe data: INT.
+    Berfungsi sebagai identitas utama barang. Kolom ini menggunakan Primary Key dan Auto Increment.
+2. kode_barang
+    Tipe data: VARCHAR(10).
+    Digunakan untuk menyimpan kode barang. Aturan UNIQUE memastikan setiap kode barang berbeda.
+3. nama_barang
+    Tipe data: VARCHAR(100).
+    Digunakan untuk menyimpan nama barang dan wajib diisi.
+4. kategori_barang
+    Tipe data: ENUM.
+    Digunakan untuk menentukan kategori barang. Berdasarkan rancangan, kategorinya adalah ATK, makanan, dan minuman.
+5. harga_jual_barang
+    Tipe data: DECIMAL(12,2).
+    Digunakan untuk menyimpan harga jual barang dengan dua angka di belakang koma. Aturan CHECK memastikan nilainya tidak kurang dari nol.
+6. stok_barang
+    Tipe data: INT.
+    Digunakan untuk menyimpan jumlah barang yang tersedia. Aturan CHECK memastikan jumlah stok tidak kurang dari nol.
+7. stok_min_barang
+    Tipe data: INT.
+    Digunakan untuk menentukan batas minimum stok barang. Nilai DEFAULT yang ditetapkan adalah 5 apabila nilai tersebut tidak diberikan saat data dimasukkan.
+
+Contoh penerapan: Jika koperasi menjual buku tulis, data buku tulis disimpan dalam tabel barang. Ketika buku tulis terjual, jumlah stok dapat diperbarui sesuai jumlah yang keluar.
+
+2.4.5 Tabel Penjualan
+
+Tabel penjualan digunakan untuk mencatat informasi utama setiap transaksi penjualan. Tabel ini menyimpan informasi transaksi, bukan rincian semua barang yang dibeli.
+
+Tabel penjualan memiliki enam kolom, yaitu:
+
+1. id_penjualan
+    Tipe data: INT.
+    Berfungsi sebagai identitas utama transaksi dengan Primary Key dan Auto Increment.
+2. no_nota_penjualan
+    Tipe data: CHAR(12).
+    Digunakan untuk menyimpan nomor nota penjualan. Aturan UNIQUE memastikan nomor nota tidak digunakan pada transaksi lain.
+3. tgl_penjualan
+    Tipe data: DATETIME.
+    Digunakan untuk menyimpan tanggal dan waktu transaksi. Kolom ini wajib diisi.
+4. id_petugas
+    Tipe data: SMALLINT.
+    Berfungsi sebagai Foreign Key yang mengacu pada id_petugas di tabel petugas. Kolom ini menunjukkan petugas yang menangani transaksi.
+5. id_anggota
+    Tipe data: INT.
+    Berfungsi sebagai Foreign Key yang mengacu pada id_anggota di tabel anggota. Kolom ini boleh NULL sehingga transaksi dapat dicatat tanpa mengaitkannya dengan anggota tertentu.
+6. bayar_penjualan
+    Tipe data: DECIMAL(12,2).
+    Digunakan untuk menyimpan nilai pembayaran penjualan dan tidak boleh NULL.
+
+Contoh penerapan: Ketika pelanggan membeli beberapa barang, informasi utama seperti nomor nota, tanggal, petugas, dan pembayaran dicatat pada tabel penjualan. Rincian barang yang dibeli disimpan secara terpisah di tabel detail_penjualan.
+
+2.4.6 Tabel Detail Penjualan
+
+Tabel detail_penjualan digunakan untuk menyimpan rincian barang yang terdapat dalam suatu transaksi penjualan.
+
+Tabel ini penting karena satu transaksi dapat berisi beberapa jenis barang. Oleh sebab itu, informasi transaksi utama dan rincian barang dipisahkan ke dalam dua tabel.
+
+Tabel detail_penjualan memiliki empat kolom, yaitu:
+
+1. id_penjualan
+    Tipe data: INT.
+    Merupakan bagian dari Primary Key gabungan sekaligus Foreign Key yang mengacu pada tabel penjualan.
+2. id_barang
+    Tipe data: INT.
+    Merupakan bagian dari Primary Key gabungan sekaligus Foreign Key yang mengacu pada tabel barang.
+3. qty_detail_penjualan
+    Tipe data: SMALLINT.
+    Digunakan untuk menyimpan jumlah barang yang dijual dalam satu rincian transaksi. Aturan CHECK mengharuskan nilainya lebih dari nol.
+4. harga_satuan_detail_penjualan
+    Tipe data: DECIMAL(12,2).
+    Digunakan untuk menyimpan harga satuan barang pada saat transaksi dan tidak boleh NULL.
+
+Pada tabel ini, id_penjualan dan id_barang digunakan bersama sebagai Primary Key gabungan. Artinya, kombinasi kedua nilai tersebut harus unik.
+
+Contoh penerapan: Dalam satu nota, pelanggan membeli dua buku tulis dan satu pulpen. Tabel penjualan menyimpan informasi notanya, sedangkan tabel detail_penjualan menyimpan rincian buku tulis dan pulpen beserta jumlah dan harga satuannya.
+
+2.4.7 Tabel Pembelian
+
+Tabel pembelian digunakan untuk mencatat informasi utama pembelian atau pemesanan barang dari pemasok.
+
+Tabel pembelian memiliki lima kolom, yaitu:
+
+1. id_pembelian
+    Tipe data: INT.
+    Berfungsi sebagai identitas utama transaksi pembelian dengan Primary Key dan Auto Increment.
+2. no_faktur_pembelian
+    Tipe data: VARCHAR(20).
+    Digunakan untuk menyimpan nomor faktur pembelian. Kolom ini tidak boleh NULL.
+3. tgl_pembelian
+    Tipe data: DATE.
+    Digunakan untuk menyimpan tanggal pembelian dan tidak boleh NULL.
+4. id_pemasok
+    Tipe data: INT.
+    Berfungsi sebagai Foreign Key yang mengacu pada tabel pemasok. Kolom ini menunjukkan pemasok yang berkaitan dengan transaksi pembelian.
+5. status_pembelian
+    Tipe data: ENUM.
+    Digunakan untuk menunjukkan status pembelian dengan pilihan dipesan atau diterima.
+
+Contoh penerapan: Ketika koperasi memesan barang kepada pemasok, informasi faktur, tanggal, pemasok, dan status pembelian dicatat dalam tabel pembelian.
+
+2.4.8 Tabel Detail Pembelian
+
+Tabel detail_pembelian digunakan untuk mencatat rincian barang yang dibeli dalam suatu transaksi pembelian.
+
+Tabel ini memiliki empat kolom, yaitu:
+
+1. id_pembelian
+    Tipe data: INT.
+    Merupakan bagian dari Primary Key gabungan sekaligus Foreign Key yang mengacu pada tabel pembelian.
+2. id_barang
+    Tipe data: INT.
+    Merupakan bagian dari Primary Key gabungan sekaligus Foreign Key yang mengacu pada tabel barang.
+3. qty_detail_pembelian
+    Tipe data: INT.
+    Digunakan untuk menyimpan jumlah barang yang dibeli. Aturan CHECK mengharuskan nilainya lebih dari nol.
+4. harga_beli_detail_pembelian
+    Tipe data: DECIMAL(12,2).
+    Digunakan untuk menyimpan harga beli setiap barang dan tidak boleh NULL.
+
+Kombinasi id_pembelian dan id_barang menjadi Primary Key gabungan sehingga kombinasi yang sama tidak dapat dimasukkan berulang kali.
+
+Contoh penerapan: Jika koperasi membeli sepuluh buku tulis dan lima pulpen dari pemasok, informasi utama pembeliannya disimpan dalam tabel pembelian. Sementara itu, jumlah buku tulis dan pulpen serta harga belinya dicatat dalam tabel detail_pembelian.
+
+2.5 Penjelasan Tipe Data
+
+Tipe data menentukan jenis nilai yang dapat disimpan dalam suatu kolom. Pemilihan tipe data harus sesuai dengan informasi yang ingin dicatat.
+
+1. INT
+
+INT digunakan untuk menyimpan bilangan bulat. Contohnya adalah ID anggota, ID barang, dan ID pembelian.
+
+2. SMALLINT
+
+SMALLINT digunakan untuk menyimpan bilangan bulat dengan rentang lebih kecil daripada INT. Tipe ini digunakan untuk id_petugas dan jumlah barang pada detail penjualan.
+
+3. CHAR
+
+CHAR digunakan untuk menyimpan teks dengan panjang tetap. Contohnya CHAR(3) untuk kode petugas dan CHAR(6) untuk nomor anggota.
+
+4. VARCHAR
+
+VARCHAR digunakan untuk menyimpan teks dengan panjang yang dapat bervariasi hingga batas tertentu. Contohnya adalah nama anggota, nama barang, alamat pemasok, dan nomor telepon.
+
+5. DATE
+
+DATE digunakan untuk menyimpan tanggal tanpa informasi waktu. Contohnya adalah tanggal pendaftaran anggota dan tanggal pembelian.
+
+6. DATETIME
+
+DATETIME digunakan untuk menyimpan tanggal sekaligus waktu. Tipe ini digunakan pada tanggal penjualan agar waktu transaksi juga dapat dicatat.
+
+7. DECIMAL(12,2)
+
+DECIMAL digunakan untuk menyimpan angka desimal dengan ketelitian tertentu. Pada DECIMAL(12,2), angka memiliki total hingga 12 digit dengan dua digit di belakang koma. Tipe ini sesuai untuk menyimpan harga dan pembayaran.
+
+8. ENUM
+
+ENUM digunakan untuk membatasi nilai kolom pada pilihan yang telah ditentukan. Contohnya, status anggota hanya dapat berisi aktif atau nonaktif sesuai rancangan.
+
+Pemilihan tipe data yang tepat membantu menjaga konsistensi data dan menghindari kesalahan penyimpanan.
+
+2.6 Penjelasan Constraint
+
+Constraint adalah aturan yang diterapkan pada kolom atau tabel agar data yang disimpan memenuhi persyaratan tertentu.
+
+1. Primary Key (PK)
+
+Primary Key merupakan kunci utama yang digunakan untuk membedakan setiap baris dalam sebuah tabel. Nilainya harus unik dan tidak boleh NULL.
+
+Contohnya, id_barang digunakan untuk membedakan satu barang dengan barang lainnya.
+
+2. Foreign Key (FK)
+
+Foreign Key merupakan kunci tamu yang digunakan untuk menghubungkan tabel satu dengan tabel lainnya.
+
+Contohnya, id_petugas pada tabel penjualan mengacu pada id_petugas di tabel petugas. Dengan demikian, transaksi dapat dikaitkan dengan petugas yang benar.
+
+3. UNIQUE
+
+UNIQUE digunakan untuk memastikan nilai pada kolom tidak berulang.
+
+Contohnya, kode_barang harus unik agar dua barang tidak memiliki kode yang sama.
+
+4. NOT NULL
+
+NOT NULL berarti kolom wajib memiliki nilai dan tidak boleh berisi NULL.
+
+Contohnya, nama_barang harus diisi agar setiap barang memiliki nama yang jelas.
+
+5. NULL
+
+NULL menunjukkan bahwa suatu kolom tidak memiliki nilai yang diketahui atau tidak diisi.
+
+Contohnya, id_anggota pada tabel penjualan boleh NULL karena transaksi tidak selalu harus dikaitkan dengan anggota tertentu.
+
+NULL berbeda dengan angka nol atau teks kosong.
+
+6. CHECK
+
+CHECK digunakan untuk memastikan nilai memenuhi syarat tertentu.
+
+Contohnya, harga_jual_barang harus bernilai minimal nol, sedangkan qty_detail_penjualan harus lebih dari nol.
+
+Aturan ini membantu mencegah nilai yang tidak sesuai dengan kebutuhan sistem.
+
+7. DEFAULT
+
+DEFAULT digunakan untuk memberikan nilai otomatis ketika nilai kolom tidak ditentukan saat data dimasukkan.
+
+Contohnya, stok_min_barang memiliki nilai DEFAULT 5. Jika nilai tersebut tidak diberikan, sistem menggunakan nilai bawaan tersebut.
+
+8. AUTO_INCREMENT (AI)
+
+AUTO_INCREMENT digunakan agar nilai angka bertambah secara otomatis ketika data baru dimasukkan.
+
+Contohnya, ketika anggota baru ditambahkan, id_anggota dapat dibuat otomatis oleh sistem sehingga tidak perlu ditentukan secara manual.
+
+9. Primary Key Gabungan
+
+Primary Key gabungan adalah kunci utama yang dibentuk dari dua atau lebih kolom.
+
+Pada tabel detail_penjualan, kombinasi id_penjualan dan id_barang digunakan sebagai Primary Key. Hal yang sama diterapkan pada tabel detail_pembelian.
+
+Kunci gabungan membantu membedakan setiap pasangan transaksi dan barang dalam tabel detail.
+
+2.7 Hubungan Antartabel dan Kardinalitas
+
+Hubungan antartabel digunakan agar informasi yang saling berkaitan dapat dikelola secara terstruktur. Pada ERD, hubungan ini dijelaskan melalui kardinalitas.
+
+1. Hubungan Petugas dengan Penjualan
+
+Satu petugas dapat menangani nol atau banyak transaksi penjualan. Namun, setiap transaksi penjualan mengacu pada satu petugas.
+
+Hubungan ini menggunakan id_petugas sebagai Foreign Key pada tabel penjualan.
+
+2. Hubungan Anggota dengan Penjualan
+
+Satu anggota dapat memiliki nol atau banyak transaksi penjualan. Sebaliknya, satu transaksi dapat dikaitkan dengan nol atau satu anggota.
+
+Hal ini karena id_anggota pada tabel penjualan boleh NULL.
+
+3. Hubungan Penjualan dengan Detail Penjualan
+
+Satu transaksi penjualan memiliki satu atau lebih rincian barang. Setiap baris detail penjualan mengacu pada satu transaksi.
+
+Hubungan ini menggunakan id_penjualan.
+
+4. Hubungan Barang dengan Detail Penjualan
+
+Satu barang dapat muncul pada nol atau banyak rincian transaksi penjualan. Setiap baris detail penjualan mengacu pada satu barang.
+
+Hubungan ini menggunakan id_barang.
+
+5. Hubungan Pemasok dengan Pembelian
+
+Satu pemasok dapat berhubungan dengan nol atau banyak transaksi pembelian. Setiap transaksi pembelian mengacu pada satu pemasok.
+
+Hubungan ini menggunakan id_pemasok pada tabel pembelian.
+
+6. Hubungan Pembelian dengan Detail Pembelian
+
+Satu transaksi pembelian memiliki satu atau lebih rincian barang. Setiap baris detail pembelian mengacu pada satu transaksi pembelian.
+
+Hubungan ini menggunakan id_pembelian.
+
+7. Hubungan Barang dengan Detail Pembelian
+
+Satu barang dapat muncul pada nol atau banyak rincian transaksi pembelian. Setiap baris detail pembelian mengacu pada satu barang.
+
+Hubungan ini menggunakan id_barang.
+
+Adapun arti kardinalitas pada ERD adalah sebagai berikut:
+
+* 1: tepat satu.
+* 0..1: nol atau satu.
+* 0..N: nol atau banyak.
+* 1..N: satu atau banyak.
+
+Kardinalitas membantu menjelaskan berapa banyak data yang dapat berhubungan dengan data lainnya.
+
+2.8 Alur Kerja Sistem Basis Data Kopma
+
+Alur kerja basis data Kopma dapat dibagi menjadi dua proses utama, yaitu penjualan dan pembelian.
+
+A. Proses Penjualan
+
+Proses penjualan dimulai ketika pelanggan membeli barang di koperasi. Petugas mencatat informasi utama transaksi pada tabel penjualan, seperti nomor nota, tanggal transaksi, petugas yang melayani, dan informasi pembayaran.
+
+Selanjutnya, barang yang dibeli dicatat pada tabel detail_penjualan. Tabel ini menyimpan ID barang, jumlah barang, dan harga satuan pada saat transaksi.
+
+Data barang yang tercatat pada tabel detail_penjualan mengacu pada tabel barang. Dengan demikian, sistem dapat mengetahui barang apa yang dijual dan berapa jumlahnya.
+
+Contohnya, pelanggan membeli dua buku tulis dan satu pulpen. Informasi nomor nota disimpan pada tabel penjualan, sedangkan rincian buku tulis dan pulpen dicatat pada tabel detail_penjualan.
+
+B. Proses Pembelian
+
+Proses pembelian dimulai ketika koperasi memesan atau membeli barang dari pemasok. Informasi utama pembelian dicatat pada tabel pembelian, termasuk nomor faktur, tanggal, pemasok, dan status pembelian.
+
+Kemudian, setiap barang yang dibeli dicatat pada tabel detail_pembelian. Informasi yang disimpan meliputi ID barang, jumlah barang, dan harga beli.
+
+Contohnya, koperasi membeli sepuluh buku tulis dari pemasok. Informasi pemasok dan faktur disimpan pada tabel pembelian, sedangkan jumlah dan harga beli buku tulis dicatat pada tabel detail_pembelian.
+
+C. Pengelolaan Data Barang
+
+Tabel barang berfungsi sebagai pusat informasi mengenai barang yang dikelola koperasi. Tabel ini menyimpan kode barang, nama barang, kategori, harga jual, stok, dan stok minimum.
+
+Data pada tabel barang dihubungkan dengan transaksi penjualan dan pembelian melalui tabel detail masing-masing.
+
+Dengan rancangan ini, informasi barang tidak perlu ditulis ulang secara lengkap pada setiap transaksi. Sistem cukup menggunakan ID barang untuk menghubungkan data yang sudah tersimpan.
+
+2.9 Alasan Tabel Transaksi dan Tabel Detail Dipisahkan
+
+Tabel penjualan dipisahkan dari detail_penjualan karena keduanya memiliki fungsi yang berbeda. Tabel penjualan menyimpan informasi utama transaksi, sedangkan tabel detail_penjualan menyimpan rincian barang yang dijual.
+
+Pemisahan yang sama diterapkan pada tabel pembelian dan detail_pembelian.
+
+Apabila seluruh informasi dimasukkan ke satu tabel, data nomor nota, tanggal, atau pemasok dapat berulang untuk setiap barang yang tercatat. Hal tersebut dapat membuat tabel menjadi kurang teratur.
+
+Dengan memisahkan tabel utama dan tabel detail, penyimpanan data menjadi lebih terstruktur, hubungan antardata lebih jelas, dan pencatatan transaksi dengan banyak barang menjadi lebih mudah.
+
+2.10 Nilai Turunan dalam Transaksi
+
+Nilai turunan adalah nilai yang dapat dihitung dari data lain yang sudah tersimpan.
+
+Contohnya, subtotal suatu barang dapat dihitung menggunakan rumus:
+
+Subtotal = Jumlah Barang × Harga Satuan
+
+Jika dua buku tulis masing-masing memiliki harga satuan Rp5.000, subtotalnya adalah:
+
+2 × Rp5.000 = Rp10.000.
+
+Nilai total transaksi dapat diperoleh dengan menjumlahkan subtotal seluruh barang dalam transaksi.
+
+Pada rancangan ERD fisik yang dibahas, nilai seperti subtotal dan total keseluruhan transaksi tidak disimpan sebagai kolom tersendiri. Nilai tersebut dapat dihitung ketika dibutuhkan berdasarkan jumlah dan harga satuan.
+
+Cara ini membantu menghindari penyimpanan nilai hasil perhitungan yang berpotensi berbeda dari data sumbernya.
+
+
+
+BAB III
+
+PENUTUP
+
+3.1 Kesimpulan
+
+Berdasarkan pembahasan yang telah dilakukan, dapat disimpulkan bahwa ERD fisik Kopma merupakan rancangan basis data yang digunakan untuk mendukung pengelolaan kegiatan koperasi secara terstruktur.
+
+Rancangan tersebut terdiri dari delapan tabel, yaitu petugas, anggota, pemasok, barang, penjualan, detail_penjualan, pembelian, dan detail_pembelian. Setiap tabel memiliki fungsi dan atribut yang berbeda sesuai kebutuhan sistem.
+
+Tipe data digunakan untuk menentukan jenis informasi yang disimpan, sedangkan constraint digunakan untuk menjaga agar data memenuhi aturan yang ditetapkan. Primary Key berfungsi membedakan setiap baris, Foreign Key menghubungkan tabel, UNIQUE mencegah nilai tertentu berulang, NOT NULL mewajibkan pengisian kolom, CHECK membatasi nilai, DEFAULT memberikan nilai bawaan, dan AUTO_INCREMENT menghasilkan ID secara otomatis.
+
+Hubungan antartabel memungkinkan sistem menghubungkan data petugas, anggota, pemasok, dan barang dengan transaksi penjualan maupun pembelian. Pemisahan tabel transaksi dan tabel detail juga membantu menyusun data agar lebih teratur dan mudah dikelola.
+
+Dengan demikian, rancangan ERD fisik yang baik menjadi dasar penting dalam membangun sistem informasi koperasi yang terstruktur, konsisten, dan mudah dikembangkan.
+
+3.2 Saran
+
+Dalam pembuatan basis data menggunakan MySQL atau phpMyAdmin, setiap tabel sebaiknya dibuat sesuai rancangan ERD fisik. Penentuan tipe data, Primary Key, Foreign Key, dan constraint perlu dilakukan dengan teliti agar tidak terjadi kesalahan saat data dimasukkan.
+
+Selain itu, pengujian perlu dilakukan menggunakan data contoh untuk memastikan bahwa setiap tabel dapat menyimpan data dengan benar dan setiap hubungan antartabel berjalan sesuai rancangan.
+
+Mahasiswa juga disarankan memahami fungsi setiap kolom dan aturan basis data, bukan hanya mengikuti langkah pembuatan tabel. Dengan demikian, mahasiswa dapat menjelaskan alasan penggunaan setiap tipe data dan constraint secara lebih mudah.
